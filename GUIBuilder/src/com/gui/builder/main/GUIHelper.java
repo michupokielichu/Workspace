@@ -15,7 +15,7 @@ import com.gui.builder.panel.AbstractPanel;
 
 public class GUIHelper {
 	
-	final static Logger logger = Logger.getLogger(GUIHelper.class);
+	private static Logger logger = Logger.getLogger(GUIHelper.class);
 
 	public static void setLookAndFeel(Component component) {
 		String os = System.getProperty("os.name");
