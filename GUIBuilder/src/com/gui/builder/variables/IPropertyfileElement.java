@@ -4,6 +4,7 @@ package com.gui.builder.variables;
 public interface IPropertyfileElement {
 
 	public static String TITLE = "title";
+	public static String ICON = "icon";
 	public static String ID = "id";
 	public static String BEFORE_ACTION = "beforAction";
 	public static String WIDTH = "width";

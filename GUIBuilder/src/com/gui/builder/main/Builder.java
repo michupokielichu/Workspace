@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -67,6 +69,7 @@ public class Builder implements IPropertyfileElement{
 	private Integer mColumns;
 	private Integer mRows;
 	private String mTitle;
+	private String mIcon;
 	private String mWidth;
 	private String mHeight;
 	private String mScrollMode;
@@ -99,6 +102,12 @@ public class Builder implements IPropertyfileElement{
 	public void buidWindowFrame(JFrame frame) {
 		mFrame = frame;
 		mFrame.setTitle(mTitle);
+		logger.debug("Frame title: " + mTitle);
+		if (mIcon != null) {
+			logger.debug("Path to icon:" + mIcon);
+			ImageIcon img = new ImageIcon(mIcon);
+			mFrame.setIconImage(img.getImage());
+		}
 		JMenuBar menuBar = new MenuBar();
 		mFrame.setJMenuBar(menuBar);
 		mFrame.setLayout(null);
@@ -229,12 +238,14 @@ public class Builder implements IPropertyfileElement{
 			String title = mProperties.getProperty(TITLE);
 			String id = mProperties.getProperty(ID);
 			String beforAction = mProperties.getProperty(BEFORE_ACTION);
+			String icon = mProperties.getProperty(ICON);
 			mWidth = mProperties.getProperty(WIDTH);
 			mHeight = mProperties.getProperty(HEIGHT);
 			mScrollMode = mProperties.getProperty(SCROLL);
 			mBtnOk = getPathToBtnAction(fullPath) + ISettings.ACTION_OK_NAME;
 			mBtnAnnul = getPathToBtnAction(fullPath) + ISettings.ACTION_ANNUL_NAME;
 			mTitle = title;
+			mIcon = icon;
 			Set<String> idSet = new HashSet<String>();
 			if (beforAction != null) {
 				try {
