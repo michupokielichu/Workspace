@@ -55,7 +55,6 @@ public class Translator {
 		}
 		for (List<String> rowList : itemList) {
 			for (int iter = 2; iter < rowList.size(); iter++) {
-//				System.err.println(iter+"\t"+languageList.get(iter - 2)+"\t"+ rowList.get(0)+"\t"+ rowList.get(1)+"\t"+ rowList.get(iter));
 				generateMap(languageList.get(iter - 2), rowList.get(0), rowList.get(1), rowList.get(iter));
 			}
 		}
@@ -81,7 +80,6 @@ public class Translator {
 		if (panelId == null || labelId == null) {
 			return "";
 		}
-		logger.debug("Translacja dla " + ISettings.LANGUAGE + ": " + panelId + " " + labelId + " ");
 		Map<String, String> map = translateMap.get(ISettings.LANGUAGE).get(panelId);
 		return map != null ? map.get(labelId) : "";
 	}

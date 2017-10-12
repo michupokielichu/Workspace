@@ -165,12 +165,14 @@ public class Builder implements IPropertyfileElement{
 		}
 	}
 
-	public void buildBtnPanel(JPanel btnPanel) {
-		if (mBtnOk != null) {
+	public boolean buildBtnPanel(JPanel btnPanel) {
+		if (mBtnOk != null && !mBtnOk.isEmpty()) {
 			PanelButton b = ((PanelButton) btnPanel);
 			b.prepareActions(mBtnOk, mBtnAnnul);
 			b.setPanelActivated();
-		} 
+			return true;
+		}
+		return false;
 	}
 
 	public void buidPanel(JPanel panel) {
@@ -269,8 +271,8 @@ public class Builder implements IPropertyfileElement{
 				
 				if (strComponent != null) {
 					if (!strComponent.equals("break")) {
-						logger.debug("Generowanie komponentu: " + strLabel);
-						logger.debug("Klasa: " + strComponent);
+//						logger.debug("Generowanie komponentu: " + strLabel);
+//						logger.debug("Klasa: " + strComponent);
 						Class<IComponent> componentClass = (Class<IComponent>) classLoader.loadClass(strComponent);
 						IComponent component = (IComponent) componentClass.newInstance();
 						component.initialise(strId, strDefault);
