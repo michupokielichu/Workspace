@@ -12,4 +12,8 @@ public interface ISettings {
 	public static String ACTION_OK_NAME = "ActionOk";
 	public static String ACTION_ANNUL_NAME = "ActionAnnul";
 
+	public static String LANGUAGE = "Polski";
+//	public static String LANGUAGE = "Deutsch";
+//	public static String LANGUAGE = "Englisch";
+
 }

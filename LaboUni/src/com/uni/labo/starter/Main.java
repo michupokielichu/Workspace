@@ -1,6 +1,7 @@
 package com.uni.labo.starter;
 
 import java.awt.EventQueue;
+import java.io.IOException;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -8,6 +9,7 @@ import javax.swing.JFrame;
 import org.apache.log4j.Logger;
 
 import com.gui.builder.components.Dialog;
+import com.gui.builder.translate.Translator;
 import com.uni.labo.login.LoginWindow;
 import com.uni.labo.main.MainFrame;
 
@@ -20,6 +22,11 @@ public class Main {
 			public void run() {
 				try {
 //					Splash sp = new Splash();
+					try {
+						Translator.readXLSXFile();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 					JFrame main = new MainFrame();
 					JDialog loginWindow = new LoginWindow();
 					main.setVisible(true);
