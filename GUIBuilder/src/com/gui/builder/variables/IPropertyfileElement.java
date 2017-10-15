@@ -19,6 +19,7 @@ public interface IPropertyfileElement {
 	public static String DISABLED = "disabled";
 	public static String SCROLL = "scroll";
 	public static String ITEM = "item";
+	public static String ARG = "arg";
 	public static String CLASS = "class";
 
 }

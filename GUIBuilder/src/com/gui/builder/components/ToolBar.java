@@ -79,4 +79,10 @@ public class ToolBar extends JToolBar implements IComponent {
 			}
 		}
 	}
+
+	@Override
+	public void addParameter(String strArg) {
+		// TODO Auto-generated method stub
+		
+	}
 }

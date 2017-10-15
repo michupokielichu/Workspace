@@ -1,6 +1,13 @@
 package com.gui.builder.components;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import org.apache.log4j.Logger;
 
@@ -15,50 +22,53 @@ public class Table extends JTable implements IComponent{
 	private boolean mObligatory;
 	private static final long serialVersionUID = -4564467101561292786L;
 	static Object rowData[][] = { 
-			{ "1Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-			{ "2Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-			{ "3Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-			{ "4Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-			{ "5Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-//			{ "6Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-//			{ "7Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-//			{ "8Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-//			{ "9Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-//			{ "10Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-//			{ "11Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-//			{ "12Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-//			{ "13Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-//			{ "14Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-//			{ "15Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-//			{ "16Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-//			{ "17Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-//			{ "18Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-//			{ "19Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
-			{ "20Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" }};
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" },
+			{ "Michal", "Bledowski", "Wroclaw" }, { "Karol", "Krawczyk", "Warszawa" }};
 	static Object columnNames[] = { "Imie", "Nazwisko", "Miasto" };
 
+	private List<String> mHeader = new ArrayList<>();
 	
 	public Table(){
-		super(rowData, columnNames);
+		super();
+//		getmo
 		setFont(IFonts.TEXT_FONT);
 		setDefaultEditor(Object.class, null);
+		
 //		setPreferredSize(new Dimension(10,400));
-//		addKeyListener(new KeyListener() {
-//		    public void keyPressed(KeyEvent e) {
-//				if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_UP) {
-//					logger.info("Enter pressed!" + e.getKeyCode() + "  " + e.getKeyText(e.getKeyCode()));
-//					((Table)e.getComponent()).setSize(((Table)e.getComponent()).getWidth(), ((Table)e.getComponent()).getHeight()+10);
-//				}
-//				if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_DOWN) {
-//					logger.info("Enter pressed!" + e.getKeyCode() + "  " + e.getKeyText(e.getKeyCode()));
-//					((Table)e.getComponent()).setSize(((Table)e.getComponent()).getWidth(), ((Table)e.getComponent()).getHeight()-10);
-//				}
-//		    }
-//
-//		    public void keyReleased(KeyEvent e) { /* ... */ }
-//
-//		    public void keyTyped(KeyEvent e) { /* ... */ }
-//		});
+		addKeyListener(new KeyListener() {
+		    public void keyPressed(KeyEvent e) {
+				if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_UP) {
+					logger.info("Enter pressed!" + e.getKeyCode() + "  " + e.getKeyText(e.getKeyCode()));
+					((Table)e.getComponent()).setSize(((Table)e.getComponent()).getWidth(), ((Table)e.getComponent()).getHeight()+10);
+				}
+				if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_DOWN) {
+					logger.info("Enter pressed!" + e.getKeyCode() + "  " + e.getKeyText(e.getKeyCode()));
+					((Table)e.getComponent()).setSize(((Table)e.getComponent()).getWidth(), ((Table)e.getComponent()).getHeight()-10);
+				}
+		    }
+
+		    public void keyReleased(KeyEvent e) { /* ... */ }
+
+		    public void keyTyped(KeyEvent e) { /* ... */ }
+		});
 
 	}
 	
@@ -104,6 +114,13 @@ public class Table extends JTable implements IComponent{
 	@Override
 	public void setDisabled(boolean disabled) {
 		setEnabled(!disabled);
+	}
+
+	@Override
+	public void addParameter(String strArg) {
+		mHeader.add(strArg);
+		TableModel model = new DefaultTableModel(mHeader.toArray(), 13);
+		setModel(model);
 	}
 
 }

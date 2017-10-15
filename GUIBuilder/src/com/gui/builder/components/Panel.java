@@ -42,4 +42,10 @@ public class Panel extends JPanel implements IComponent{
 	public void setDisabled(boolean disabled) {
 		setEnabled(!disabled);
 	}
+
+	@Override
+	public void addParameter(String strArg) {
+		// TODO Auto-generated method stub
+		
+	}
 }

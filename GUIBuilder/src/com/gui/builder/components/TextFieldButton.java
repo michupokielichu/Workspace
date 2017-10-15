@@ -82,4 +82,10 @@ public class TextFieldButton extends JPanel implements IComponent{
 		
 	}
 
+	@Override
+	public void addParameter(String strArg) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

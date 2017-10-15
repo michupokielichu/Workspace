@@ -44,4 +44,10 @@ public class List extends JList<DefaultListModel> implements IComponent{
 	public void setDisabled(boolean disabled) {
 		
 	}
+
+	@Override
+	public void addParameter(String strArg) {
+		// TODO Auto-generated method stub
+		
+	}
 }

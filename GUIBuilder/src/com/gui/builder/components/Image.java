@@ -89,4 +89,10 @@ public class Image extends JLabel implements IComponent{
 		setEnabled(!disabled);
 	}
 
+	@Override
+	public void addParameter(String strArg) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

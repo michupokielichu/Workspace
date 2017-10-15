@@ -271,12 +271,16 @@ public class Builder implements IPropertyfileElement{
 				
 				if (strComponent != null) {
 					if (!strComponent.equals("break")) {
-//						logger.debug("Generowanie komponentu: " + strLabel);
-//						logger.debug("Klasa: " + strComponent);
 						Class<IComponent> componentClass = (Class<IComponent>) classLoader.loadClass(strComponent);
 						IComponent component = (IComponent) componentClass.newInstance();
 						component.initialise(strId, strDefault);
 						component.setDisabled(Boolean.parseBoolean(strDisabled));
+						for(int j=0;j<31;j++) {
+							String strArg = Translator.getLabel(id, ARG + i+"_"+j);
+							if (strArg!=null && !strArg.isEmpty()) {
+								component.addParameter(strArg);
+							}
+						}
 						if (strObligatory != null) {
 							component.setObligatory(Boolean.parseBoolean(strObligatory));
 						}

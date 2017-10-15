@@ -92,4 +92,10 @@ public class TextArea extends JTextArea implements IComponent {
 	public void setDisabled(boolean disabled) {
 		setEnabled(!disabled);
 	}
+
+	@Override
+	public void addParameter(String strArg) {
+		// TODO Auto-generated method stub
+		
+	}
 }
