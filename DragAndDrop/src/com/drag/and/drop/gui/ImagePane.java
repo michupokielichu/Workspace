@@ -27,7 +27,7 @@ public class ImagePane extends JPanel {
 		public ImagePane(File source) throws IOException {
 			
 			setBackground(Color.RED);
-			setBackground(Color.BLUE);
+			setBackground(Color.white);
 			this.source=source;
 			img = ImageIO.read(source);
 			if (img.getWidth(this) > IMAGE_SIZE || img.getHeight(this) > IMAGE_SIZE) {

@@ -56,21 +56,19 @@ public class DropPanel extends JPanel implements KeyListener {
 //					
 			        int x = 0;
 			        int y = this.getParent().getHeight()/2 - iHeight2;
-			        System.out.println(x+"   "+y);
 			        g.drawImage(image,x,y,this);
-//			        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
 
 			    }
 			}
 		};
-//		imagesPane.setBackground(panelColor);
+		imagesPane.setBackground(Color.WHITE);
 		statusBar = new StatusBar();
 		
-		File imgeFile = new File("C:\\Users\\blwm\\Desktop\\drop\\Drop_Here.png");
+		File imgeFile = new File("C:\\Users\\blwm\\Desktop\\arrow.png");
 		image = ImageIO.read(imgeFile);
-		 this.iWidth2 = image.getWidth(this)/2;
-		    this.iHeight2 = image.getHeight(this)/2;
-		
+		this.iWidth2 = image.getWidth(this) / 2;
+		this.iHeight2 = image.getHeight(this) / 2;
+
 		add(imagesPane);
 		add(statusBar, BorderLayout.SOUTH);
 	}
