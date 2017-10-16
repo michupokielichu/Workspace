@@ -11,9 +11,7 @@
 				<directory>rsrc</directory>
 			</resource>
 		</resources>
-
 		<plugins>
-
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
@@ -37,7 +35,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.5.1</version>
@@ -62,6 +59,12 @@
 		</plugins>
 	</build>
 	<dependencies>
+		<dependency>
+			<groupId>com.gui</groupId>
+			<artifactId>builder</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>

@@ -11,4 +11,6 @@ public interface ISettings {
 	
 	public static String ACTION_OK_NAME = null;
 	public static String ACTION_ANNUL_NAME = null;
+	
+	public static String LANGUAGE = null;
 }

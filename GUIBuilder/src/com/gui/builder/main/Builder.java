@@ -10,15 +10,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -46,6 +47,7 @@ import com.gui.builder.components.TextField;
 import com.gui.builder.components.ToolBar;
 import com.gui.builder.components.ToolBarButton;
 import com.gui.builder.panel.PanelButton;
+import com.gui.builder.translate.Translator;
 import com.gui.builder.variables.IComponent;
 import com.gui.builder.variables.IFonts;
 import com.gui.builder.variables.IPropertyfileElement;
@@ -59,7 +61,7 @@ public class Builder implements IPropertyfileElement{
 
 	private List<Component> components;
 	private List<Component> labels;
-	private Map<String, List<MenuElement>> menuItems;
+	private List<Entry<String, List<MenuElement>>> menuItems;
 	private static JDesktopPane mDesktopPane;
 	private static JToolBar mToolBar;
 
@@ -67,6 +69,7 @@ public class Builder implements IPropertyfileElement{
 	private Integer mColumns;
 	private Integer mRows;
 	private String mTitle;
+	private String mIcon;
 	private String mWidth;
 	private String mHeight;
 	private String mScrollMode;
@@ -78,7 +81,7 @@ public class Builder implements IPropertyfileElement{
 		mProperties = new Properties();
 		components = new ArrayList<Component>();
 		labels = new ArrayList<Component>();
-		menuItems = new HashMap<String, List<MenuElement>>();
+		menuItems = new ArrayList<>();
 	}
 
 	public void addComponent(Component component) {
@@ -99,6 +102,12 @@ public class Builder implements IPropertyfileElement{
 	public void buidWindowFrame(JFrame frame) {
 		mFrame = frame;
 		mFrame.setTitle(mTitle);
+		logger.debug("Frame title: " + mTitle);
+		if (mIcon != null) {
+			logger.debug("Path to icon:" + mIcon);
+			ImageIcon img = new ImageIcon(mIcon);
+			mFrame.setIconImage(img.getImage());
+		}
 		JMenuBar menuBar = new MenuBar();
 		mFrame.setJMenuBar(menuBar);
 		mFrame.setLayout(null);
@@ -115,9 +124,9 @@ public class Builder implements IPropertyfileElement{
 		}
 		mFrame.setContentPane(tmpPanel);
 
-		for (String menu : menuItems.keySet()) {
-			JMenu m = new Menu(menu);
-			for (MenuElement me : menuItems.get(menu)) {
+		for (Entry<String, List<MenuElement>> menu : menuItems) {
+			JMenu m = new Menu(menu.getKey());
+			for (MenuElement me : menu.getValue()) {
 				JMenuItem mi = new JMenuItem(me.getItem());
 				mi.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -156,12 +165,14 @@ public class Builder implements IPropertyfileElement{
 		}
 	}
 
-	public void buildBtnPanel(JPanel btnPanel) {
-		if (mBtnOk != null) {
+	public boolean buildBtnPanel(JPanel btnPanel) {
+		if (mBtnOk != null && !mBtnOk.isEmpty()) {
 			PanelButton b = ((PanelButton) btnPanel);
 			b.prepareActions(mBtnOk, mBtnAnnul);
 			b.setPanelActivated();
-		} 
+			return true;
+		}
+		return false;
 	}
 
 	public void buidPanel(JPanel panel) {
@@ -194,7 +205,7 @@ public class Builder implements IPropertyfileElement{
 						panel.add(right, gbc);
 						i++;
 					}
-				}
+				} 
 			}
 		} else {
 			for (Component component : components) {
@@ -226,15 +237,17 @@ public class Builder implements IPropertyfileElement{
 			mProperties.load(input);
 			ClassLoader classLoader = Builder.class.getClassLoader();
 
-			String title = mProperties.getProperty(TITLE);
 			String id = mProperties.getProperty(ID);
+			String title = Translator.getLabel(id, TITLE);
 			String beforAction = mProperties.getProperty(BEFORE_ACTION);
+			String icon = mProperties.getProperty(ICON);
 			mWidth = mProperties.getProperty(WIDTH);
 			mHeight = mProperties.getProperty(HEIGHT);
 			mScrollMode = mProperties.getProperty(SCROLL);
 			mBtnOk = getPathToBtnAction(fullPath) + ISettings.ACTION_OK_NAME;
 			mBtnAnnul = getPathToBtnAction(fullPath) + ISettings.ACTION_ANNUL_NAME;
 			mTitle = title;
+			mIcon = icon;
 			Set<String> idSet = new HashSet<String>();
 			if (beforAction != null) {
 				try {
@@ -244,7 +257,7 @@ public class Builder implements IPropertyfileElement{
 				}
 			}
 			for (int i = 1; i <= 51; i++) {
-				String strLabel = mProperties.getProperty(LABEL + i);
+				String strLabel = Translator.getLabel(id, LABEL + i);
 				String strId = mProperties.getProperty(ID + i);
 				String strObligatory = mProperties.getProperty(OBLIGATORY + i);
 				String strComponent = mProperties.getProperty(COMPONENT + i);
@@ -252,19 +265,22 @@ public class Builder implements IPropertyfileElement{
 				String strDisabled = mProperties.getProperty(DISABLED + i);
 				String strScrollMode = mProperties.getProperty(SCROLL + i);
 				String strHeight = mProperties.getProperty(HEIGHT + i);
-				String strItem = mProperties.getProperty(ITEM + i);
+				String strItem = Translator.getLabel(id, ITEM + i);
 				String strWidth = mProperties.getProperty(WIDTH + i);
-				if (strLabel != null) {
-					labels.add(new Label(strLabel));
-				}
+				labels.add(new Label(strLabel));
+				
 				if (strComponent != null) {
 					if (!strComponent.equals("break")) {
-						logger.debug("Generowanie komponentu: " + strLabel);
-						logger.debug("Klasa: " + strComponent);
 						Class<IComponent> componentClass = (Class<IComponent>) classLoader.loadClass(strComponent);
 						IComponent component = (IComponent) componentClass.newInstance();
 						component.initialise(strId, strDefault);
 						component.setDisabled(Boolean.parseBoolean(strDisabled));
+						for(int j=0;j<31;j++) {
+							String strArg = Translator.getLabel(id, ARG + i+"_"+j);
+							if (strArg!=null && !strArg.isEmpty()) {
+								component.addParameter(strArg);
+							}
+						}
 						if (strObligatory != null) {
 							component.setObligatory(Boolean.parseBoolean(strObligatory));
 						}
@@ -302,13 +318,13 @@ public class Builder implements IPropertyfileElement{
 				} else if (strItem != null) {
 					List<MenuElement> list = new ArrayList<MenuElement>();
 					for (int j = 1; j < 31; j++) {
-						String strInternItem = mProperties.getProperty("item" + i + "_" + j);
-						String strClass = mProperties.getProperty("class" + i + "_" + j);
+						String strInternItem = Translator.getLabel(id, ITEM + i + "_" + j);
+						String strClass = mProperties.getProperty(CLASS + i + "_" + j);
 						if (strInternItem != null && strClass != null) {
 							list.add(new MenuElement(strItem, strInternItem, strClass));
 						}
 					}
-					menuItems.put(strItem, list);
+					menuItems.add(new AbstractMap.SimpleEntry(strItem, list));
 				}
 			}
 		} catch (IOException ex) {

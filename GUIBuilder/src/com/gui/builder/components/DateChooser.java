@@ -1,7 +1,9 @@
 package com.gui.builder.components;
 
-import com.gui.builder.variables.IFonts;
+import java.util.Date;
+
 import com.gui.builder.variables.IComponent;
+import com.gui.builder.variables.IFonts;
 import com.toedter.calendar.JDateChooser;
 
 public class DateChooser extends JDateChooser implements IComponent{
@@ -12,7 +14,7 @@ public class DateChooser extends JDateChooser implements IComponent{
 
 	
 	public DateChooser(){
-		
+		super(new Date());
 	}
 	
 	@Override
@@ -27,7 +29,6 @@ public class DateChooser extends JDateChooser implements IComponent{
 
 	@Override
 	public String getId() {
-		// TODO Auto-generated method stub
 		return mId;
 	}
 
@@ -43,7 +44,6 @@ public class DateChooser extends JDateChooser implements IComponent{
 
 	@Override
 	public void check() {
-		// TODO Auto-generated method stub
 		
 	}
 	
@@ -51,5 +51,11 @@ public class DateChooser extends JDateChooser implements IComponent{
 	@Override
 	public void setDisabled(boolean disabled) {
 		setEnabled(!disabled);
+	}
+
+	@Override
+	public void addParameter(String strArg) {
+		// TODO Auto-generated method stub
+		
 	}
 }

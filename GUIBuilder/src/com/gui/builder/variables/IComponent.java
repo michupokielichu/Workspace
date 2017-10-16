@@ -13,4 +13,6 @@ public interface IComponent {
 	public void check();
 	
 	public void setDisabled(boolean disabled) ;
+
+	public void addParameter(String strArg);
 }

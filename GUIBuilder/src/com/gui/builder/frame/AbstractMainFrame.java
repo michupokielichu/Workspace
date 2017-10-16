@@ -33,7 +33,6 @@ public abstract class AbstractMainFrame extends JFrame {
 		builder.buidWindowFrame(this);
 		
 		mComponents.addAll(builder.getComponents());
-//		setVisible(true);
 		setSize(1024, 768);
 		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		GUIHelper.setLookAndFeel(this);

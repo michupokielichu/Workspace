@@ -56,11 +56,11 @@ public abstract class AbstractDialog extends Dialog implements IContextComponent
 		BorderLayout borderLayout = new BorderLayout(10, 10);
 
 		JPanel btnPanel = new PanelButton(this);
-		builder.buildBtnPanel(btnPanel);
+		boolean btnPanelFlag = builder.buildBtnPanel(btnPanel);
 
 		mMainPanel.setLayout(borderLayout);
 		mMainPanel.add(mComponents.get(0), BorderLayout.NORTH);
-		if (((PanelButton) btnPanel).getPanelActivated()) {
+		if (btnPanelFlag && ((PanelButton) btnPanel).getPanelActivated()) {
 			mMainPanel.add(btnPanel, BorderLayout.EAST);
 		}
 

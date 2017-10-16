@@ -41,4 +41,10 @@ public class PasswordField extends JPasswordField implements IComponent {
 	public void setDisabled(boolean disabled) {
 		setEnabled(!disabled);
 	}
+
+	@Override
+	public void addParameter(String strArg) {
+		// TODO Auto-generated method stub
+		
+	}
 }
