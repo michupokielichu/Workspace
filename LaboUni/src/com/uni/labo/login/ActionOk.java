@@ -15,8 +15,10 @@ public class ActionOk implements IAction, ILogin {
 	@Override
 	public void execute(Component panel) {
 
-		TextField user = (TextField) Context.getComponent(panel, USER);
+		TextField user = (TextField) Context.getComponent("UserPanel", "userId");;
 
+		
+		
 		if (user.getText().equals("michu")) {
 			logger.info(panel.getClass().getName() + " disposed");
 			//			((JFrame) panel).dispose();

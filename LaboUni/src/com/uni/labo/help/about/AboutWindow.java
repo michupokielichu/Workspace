@@ -1,7 +1,5 @@
 package com.uni.labo.help.about;
 
-import org.apache.log4j.Logger;
-
 import com.gui.builder.frame.AbstractDialog;
 
 public class AboutWindow extends AbstractDialog {

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.gui.builder.components.Panel;
+import com.gui.builder.components.ScrollPane;
 import com.gui.builder.frame.IContextComponents;
 import com.gui.builder.main.Builder;
 import com.gui.builder.main.GUIHelper;
@@ -34,7 +35,10 @@ public abstract class AbstractPanel extends Panel implements IContextComponents 
 			e.printStackTrace();
 		}
 		b2.buidPanel(this);
+		initialise();
 	}
+	
+	public void initialise() {};
 
 	public List<Component> getGUIComponents() {
 		return mComponents;
@@ -45,7 +49,9 @@ public abstract class AbstractPanel extends Panel implements IContextComponents 
 		for (Component c : GUIHelper.loadAllComponents(mComponents)) {
 			if (c instanceof Panel) {
 				map.putAll(((AbstractPanel)c).getContextMap());
-			} else {
+			} else if(c instanceof ScrollPane){
+				map.put(((ScrollPane)c).getComponent().getId(), ((ScrollPane)c).getComponent());
+			}else {
 				IComponent icom = (IComponent) c;
 				map.put(icom.getId(), icom);
 			}

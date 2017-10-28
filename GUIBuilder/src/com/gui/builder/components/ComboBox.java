@@ -2,8 +2,9 @@ package com.gui.builder.components;
 
 import javax.swing.JComboBox;
 
-import com.gui.builder.variables.IFonts;
+import com.gui.builder.translate.Translator;
 import com.gui.builder.variables.IComponent;
+import com.gui.builder.variables.IFonts;
 
 public class ComboBox extends JComboBox<String> implements IComponent {
 
@@ -41,13 +42,13 @@ public class ComboBox extends JComboBox<String> implements IComponent {
 
 	@Override
 	public void setValue(String values) {
-		if (values != null) {
-			for (String item : values.split(";")) {
+		for (int i = 1; i <= 30; i++) {
+			String item = Translator.getLabel(values, "item" + i);
+			if (item != null) {
 				addItem(item);
 			}
 		}
 	}
-
 	
 	@Override
 	public void setDisabled(boolean disabled) {
@@ -56,7 +57,6 @@ public class ComboBox extends JComboBox<String> implements IComponent {
 
 	@Override
 	public void addParameter(String strArg) {
-		// TODO Auto-generated method stub
 		
 	}
 }

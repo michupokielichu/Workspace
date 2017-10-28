@@ -7,9 +7,11 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 import com.gui.builder.components.Dialog;
 import com.gui.builder.translate.Translator;
+import com.uni.labo.hibernate.HibernateUtil;
 import com.uni.labo.login.LoginWindow;
 import com.uni.labo.main.MainFrame;
 
@@ -18,6 +20,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		logger.info("LaboUNI has just been started on "+ System.getProperty("os.name"));
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

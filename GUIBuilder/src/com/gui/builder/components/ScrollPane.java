@@ -14,11 +14,12 @@ public class ScrollPane extends JScrollPane implements IComponent{
 
 	private boolean mObligatory;
 	final static Logger logger = Logger.getLogger(ScrollPane.class);
-	
+	private IComponent mComponent;
 	
 	public ScrollPane(String id, Component component, int i0, int i1) {
 		super(component, i0, i1);
 		mId = id;
+		mComponent = (IComponent) component;
 	}
 
 	public ScrollPane(String id) {
@@ -60,5 +61,9 @@ public class ScrollPane extends JScrollPane implements IComponent{
 	public void addParameter(String strArg) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public IComponent getComponent() {
+		return mComponent;
 	}
 }

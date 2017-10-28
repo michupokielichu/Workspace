@@ -273,6 +273,7 @@ public class Builder implements IPropertyfileElement{
 					if (!strComponent.equals("break")) {
 						Class<IComponent> componentClass = (Class<IComponent>) classLoader.loadClass(strComponent);
 						IComponent component = (IComponent) componentClass.newInstance();
+						Context.addComponent(id, strId, component);
 						component.initialise(strId, strDefault);
 						component.setDisabled(Boolean.parseBoolean(strDisabled));
 						for(int j=0;j<31;j++) {

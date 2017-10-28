@@ -8,8 +8,9 @@ import javax.swing.JTextArea;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import com.gui.builder.variables.IFonts;
+import com.gui.builder.translate.Translator;
 import com.gui.builder.variables.IComponent;
+import com.gui.builder.variables.IFonts;
 
 public class TextArea extends JTextArea implements IComponent {
 	private static final long serialVersionUID = -6995347366318656754L;
@@ -79,8 +80,13 @@ public class TextArea extends JTextArea implements IComponent {
 
 	@Override
 	public void setValue(String text) {
-		setText(text);
-	}
+		String item = Translator.getLabel(text.split(":")[0], text.split(":")[1]);
+		if (item != null) {
+			setText(item);
+		}else {
+			setText(text);
+		}
+	}	
 	
 	public void setHeight(int height){
 		mHeight = height;

@@ -48,11 +48,9 @@ public class Table extends JTable implements IComponent{
 	
 	public Table(){
 		super();
-//		getmo
 		setFont(IFonts.TEXT_FONT);
 		setDefaultEditor(Object.class, null);
 		
-//		setPreferredSize(new Dimension(10,400));
 		addKeyListener(new KeyListener() {
 		    public void keyPressed(KeyEvent e) {
 				if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_UP) {
@@ -121,6 +119,11 @@ public class Table extends JTable implements IComponent{
 		mHeader.add(strArg);
 		TableModel model = new DefaultTableModel(mHeader.toArray(), 13);
 		setModel(model);
+	}
+	
+	private void getData() {
+		
+		
 	}
 
 }
