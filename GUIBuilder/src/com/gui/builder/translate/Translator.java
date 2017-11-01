@@ -17,6 +17,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.gui.builder.utils.StringUtil;
 import com.gui.builder.variables.ISettings;
 
 public class Translator {
@@ -24,6 +25,10 @@ public class Translator {
 
 	private static List<List<String>> itemList = null;
 
+	private static int FIRST_TRANSLATION = 2;
+	private static int COLUMN_ID = 0;
+	private static int COLUMN_COMPONENT = 1;
+	
 	public static void readXLSXFile() throws IOException {
 		InputStream ExcelFileToRead = new FileInputStream("rsrc/translate.xlsx");
 		XSSFWorkbook wb = new XSSFWorkbook(ExcelFileToRead);
@@ -45,7 +50,7 @@ public class Translator {
 				cell = ((XSSFCell) cells.next()).getStringCellValue();
 				if (rowNum == 0 && !cell.isEmpty()) {
 					languageList.add(cell);
-				} else {
+				} else if(!StringUtil.isNullOrEmpty(cell)){
 					rowList.add(cell);
 				}
 				outputRow += cell + " ";
@@ -54,8 +59,8 @@ public class Translator {
 			rowNum++;
 		}
 		for (List<String> rowList : itemList) {
-			for (int iter = 2; iter < rowList.size(); iter++) {
-				generateMap(languageList.get(iter - 2), rowList.get(0), rowList.get(1), rowList.get(iter));
+			for (int iter = FIRST_TRANSLATION; iter < rowList.size(); iter++) {
+				generateMap(languageList.get(iter - FIRST_TRANSLATION), rowList.get(COLUMN_ID), rowList.get(COLUMN_COMPONENT), rowList.get(iter));
 			}
 		}
 		wb.close();
