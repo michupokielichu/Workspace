@@ -3,18 +3,15 @@ package com.gui.builder.components;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.math.BigDecimal;
 
 import javax.swing.JTextField;
 
-import com.gui.builder.variables.IFonts;
 import com.gui.builder.variables.IComponent;
+import com.gui.builder.variables.IFonts;
 
 public class TextField extends JTextField implements IComponent {
 	private static final long serialVersionUID = 4085675198919370979L;
 	private boolean mObligatory = false;
-	private BigDecimal mMin = null;
-	private BigDecimal mMax = null;
 	private String mId;
 
 	public TextField(){
@@ -64,7 +61,6 @@ public class TextField extends JTextField implements IComponent {
 
 	@Override
 	public void addParameter(String strArg) {
-		// TODO Auto-generated method stub
 		
 	}
 }

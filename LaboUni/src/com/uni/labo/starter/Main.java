@@ -1,10 +1,12 @@
 package com.uni.labo.starter;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.io.IOException;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -22,7 +24,8 @@ public class Main {
 		logger.info("LaboUNI has just been started on "+ System.getProperty("os.name"));
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
-		 
+		UIManager.put("TextField.focus", Color.red);
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

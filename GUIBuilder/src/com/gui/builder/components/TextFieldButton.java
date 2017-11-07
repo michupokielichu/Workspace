@@ -36,8 +36,7 @@ public class TextFieldButton extends JPanel implements IComponent{
 
 	@Override
 	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return mId;
 	}
 
 	@Override

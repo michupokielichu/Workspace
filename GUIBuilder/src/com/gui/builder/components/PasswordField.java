@@ -1,5 +1,7 @@
 package com.gui.builder.components;
 
+import java.awt.Color;
+
 import javax.swing.JPasswordField;
 
 import com.gui.builder.variables.IComponent;
@@ -19,12 +21,13 @@ public class PasswordField extends JPasswordField implements IComponent {
 
 	@Override
 	public String getId() {
-		return null;
+		return mId;
 	}
 
 	@Override
 	public void setObligatory(boolean obligatory) {
 		mObligatory = obligatory;
+		this.setBackground(Color.YELLOW);
 	}
 
 	@Override

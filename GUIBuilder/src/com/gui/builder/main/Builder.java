@@ -48,6 +48,7 @@ import com.gui.builder.components.ToolBar;
 import com.gui.builder.components.ToolBarButton;
 import com.gui.builder.panel.PanelButton;
 import com.gui.builder.translate.Translator;
+import com.gui.builder.utils.ViewUtil;
 import com.gui.builder.variables.IComponent;
 import com.gui.builder.variables.IFonts;
 import com.gui.builder.variables.IPropertyfileElement;
@@ -276,6 +277,7 @@ public class Builder implements IPropertyfileElement{
 						Context.addComponent(id, strId, component);
 						component.initialise(strId, strDefault);
 						component.setDisabled(Boolean.parseBoolean(strDisabled));
+						ViewUtil.setFocus((Component) component);
 						for(int j=0;j<31;j++) {
 							String strArg = Translator.getLabel(id, ARG + i+"_"+j);
 							if (strArg!=null && !strArg.isEmpty()) {
