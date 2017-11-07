@@ -23,6 +23,7 @@ import com.gui.builder.variables.ISettings;
 public class Translator {
 	private static Logger logger = Logger.getLogger(Translator.class);
 
+	private static Map<String, Map<String, Map<String, String>>> translateMap = new HashMap<>();
 	private static List<List<String>> itemList = null;
 
 	private static int FIRST_TRANSLATION = 2;
@@ -30,7 +31,7 @@ public class Translator {
 	private static int COLUMN_COMPONENT = 1;
 	
 	public static void readXLSXFile() throws IOException {
-		InputStream ExcelFileToRead = new FileInputStream("rsrc/translate.xlsx");
+		InputStream ExcelFileToRead = new FileInputStream("translate.xlsx");
 		XSSFWorkbook wb = new XSSFWorkbook(ExcelFileToRead);
 
 		XSSFSheet sheet = wb.getSheetAt(0);
@@ -48,7 +49,7 @@ public class Translator {
 			List<String> rowList = new ArrayList<>();
 			while (cells.hasNext()) {
 				cell = ((XSSFCell) cells.next()).getStringCellValue();
-				if (rowNum == 0 && !cell.isEmpty()) {
+				if (rowNum == 0 && !StringUtil.isNullOrEmpty(cell)) {
 					languageList.add(cell);
 				} else if(!StringUtil.isNullOrEmpty(cell)){
 					rowList.add(cell);
@@ -65,7 +66,6 @@ public class Translator {
 		}
 		wb.close();
 	}
-	private static Map<String, Map<String, Map<String, String>>> translateMap = new HashMap<>();
 	
 	private static void generateMap(String language, String panelId, String labelId, String label) {
 		if (!translateMap.containsKey(language)) {
@@ -88,5 +88,4 @@ public class Translator {
 		Map<String, String> map = translateMap.get(ISettings.LANGUAGE).get(panelId);
 		return map != null ? map.get(labelId) : "";
 	}
-
 }
