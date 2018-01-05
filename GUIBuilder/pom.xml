@@ -12,7 +12,7 @@
 				<directory>src</directory>
 				<excludes>
 					<exclude>**/*.java</exclude>
-				</excludes>
+				</excludes> 
 			</resource>
 		</resources>
 		<plugins>
@@ -27,8 +27,8 @@
 		</plugins>
 	</build>
 	<properties>
-		<org.apache.poi>3.17</org.apache.poi>
-		<log4j.version>1.2.17</log4j.version>
+		<org.apache.poi>3.16</org.apache.poi>
+		<log4j.version>1.2.16</log4j.version>
 		<com.toedter>1.4</com.toedter>
 	</properties>
 	<dependencies>

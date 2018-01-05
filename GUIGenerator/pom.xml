@@ -1,9 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>GUIPropertiesGenerator</groupId>
+	<groupId>com.gui</groupId>
 	<artifactId>GUIPropertiesGenerator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
@@ -18,8 +19,8 @@
 		</plugins>
 	</build>
 	<properties>
-		<org.apache.poi>3.17</org.apache.poi>
-		<log4j.version>1.2.17</log4j.version>
+		<org.apache.poi>3.16</org.apache.poi>
+		<log4j.version>1.2.16</log4j.version>
 		<com.toedter>1.4</com.toedter>
 	</properties>
 	<dependencies>

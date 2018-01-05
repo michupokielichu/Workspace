@@ -21,7 +21,7 @@ public class ClassGenerator {
 	private static String DOUBLE_LINE_SEPARATOR = LINE_SEPARATOR + LINE_SEPARATOR;
 
 	public ClassGenerator(String name, String pathToFile, String path, String type) {
-		writing(name, pathToFile.replace("/", "\\"), path, type);
+		writing(name, pathToFile, path, type);
 	}
 
 	public void writing(String name, String obj, String path, String type) {
@@ -36,7 +36,7 @@ public class ClassGenerator {
 			w.write(DOUBLE_LINE_SEPARATOR);
 			w.write(COMMENT);
 			w.write(LINE_SEPARATOR);
-			w.write(PUBLIC_CLASS + name + LEFT_BRACKET);
+			w.write(PUBLIC_CLASS + name + EXTENDS + type.split("\\.")[type.split("\\.").length - 1] + LEFT_BRACKET);
 			w.write(LINE_SEPARATOR);
 			w.write(RIGHT_BRACKET);
 			w.close();

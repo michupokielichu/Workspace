@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -21,29 +22,21 @@ public class Generator {
 	private static Logger logger = Logger.getLogger(Generator.class);
 
 	private static Map<String, String> typeMap = null;
-	private static Map<String, String> pathMap = null;
-	private static Map<String, String> btnOkMap = null;
-	private static Map<String, String> btnAnnulMap = null;
+	private static Map<String, String> locationMap = null;
 
-	private static String OBJECT = "object";
+	private static String ID = "id";
+	private static String LOCATION = "location";
 	private static String TYPE = "type";
-	private static String PATH = "path";
-	private static String BTN_OK = "btnOk";
-	private static String BTN_ANNUL = "btnAnnul";
 
 	private static int COLLUMN_OBJECT = -1;
 	private static int COLLUMN_TYPE = -1;
 	private static int COLLUMN_PATH = -1;
-	private static int COLLUMN_BTN_OK = -1;
-	private static int COLLUMN_BTN_ANNUL = -1;
 
-	public static void readXLSXFile() throws IOException {
+	public static void readXLSXFile(String file) throws IOException {
 		typeMap = new HashMap<>();
-		pathMap = new HashMap<>();
-		btnOkMap = new HashMap<>();
-		btnAnnulMap = new HashMap<>();
+		locationMap = new HashMap<>();
 
-		InputStream ExcelFileToRead = new FileInputStream("properties.xlsx");
+		InputStream ExcelFileToRead = new FileInputStream(file);
 		XSSFWorkbook wb = new XSSFWorkbook(ExcelFileToRead);
 
 		XSSFSheet sheet = wb.getSheetAt(0);
@@ -56,32 +49,25 @@ public class Generator {
 				Iterator<Cell> cellIter = row.cellIterator();
 				while (cellIter.hasNext()) {
 					Cell cell = cellIter.next();
-					if (OBJECT.equals(cell.getStringCellValue())) {
+					if (ID.equals(cell.getStringCellValue())) {
 						COLLUMN_OBJECT = cell.getColumnIndex();
+						logger.info("COLLUMN_OBJECT: " + COLLUMN_OBJECT);
 					} else if (TYPE.equals(cell.getStringCellValue())) {
 						COLLUMN_TYPE = cell.getColumnIndex();
-					} else if (PATH.equals(cell.getStringCellValue())) {
+						logger.info("COLLUMN_TYPE: "+COLLUMN_TYPE);
+					} else if (LOCATION.equals(cell.getStringCellValue())) {
 						COLLUMN_PATH = cell.getColumnIndex();
-					} else if (BTN_OK.equals(cell.getStringCellValue())) {
-						COLLUMN_BTN_OK = cell.getColumnIndex();
-					} else if (BTN_ANNUL.equals(cell.getStringCellValue())) {
-						COLLUMN_BTN_ANNUL = cell.getColumnIndex();
+						logger.info("COLLUMN_PATH: "+COLLUMN_PATH);
 					}
 				}
-			} else {
+			} else if(row!=null && row.getCell(COLLUMN_OBJECT)!=null){
 				String object = row.getCell(COLLUMN_OBJECT).getStringCellValue();
 				String type = row.getCell(COLLUMN_TYPE).getStringCellValue();
 				String path = row.getCell(COLLUMN_PATH).getStringCellValue();
-				String btnOk = row.getCell(COLLUMN_BTN_OK).getStringCellValue();
-				String btnAnnul = row.getCell(COLLUMN_BTN_ANNUL).getStringCellValue();
 				if (row.getRowNum() > 1) {
 					if (!(type == null || type.isEmpty())) {
 						typeMap.put(object, type);
-						pathMap.put(object, path);
-					}
-					if(!(btnOk == null || btnOk.isEmpty())) {
-						btnOkMap.put(object, btnOk);
-						btnAnnulMap.put(object, btnAnnul);
+						locationMap.put(object, path);
 					}
 				}
 			}
@@ -90,11 +76,11 @@ public class Generator {
 	}
 
 	public static void generate(boolean overridePackages, boolean overrideJava) {
-		System.out.println(pathMap.size() + " paths to generate");
+		System.out.println(locationMap.size() + " paths to generate");
 		Path currentRelativePath = Paths.get("");
 		String s = currentRelativePath.toAbsolutePath().toString();
-		for (String obj : pathMap.keySet()) {
-			String concatenatedPath = s + "\\src\\" + pathMap.get(obj);
+		for (String obj : locationMap.keySet()) {
+			String concatenatedPath = s + "/src/main/java/" + locationMap.get(obj).replace(".", "/");
 			File packag = new File(concatenatedPath);
 			if (!packag.exists() || overridePackages) {
 				if (packag.mkdirs()) {
@@ -103,13 +89,24 @@ public class Generator {
 					System.out.println("Failed to create multiple directories!");
 				}
 			}
-			String pathToFile = concatenatedPath + "\\" + obj + ".java";
+			String pathToFile = concatenatedPath + "/" + obj + ".java";
 			System.err.println(pathToFile);
 			File file = new File(pathToFile);
 			if (!file.exists() || overrideJava) {
-				ClassGenerator gen = new ClassGenerator(obj, pathToFile, pathMap.get(obj), typeMap.get(obj));
+				ClassGenerator gen = new ClassGenerator(obj, pathToFile, locationMap.get(obj), typeMap.get(obj));
 			}
-//			File btnOkFile = new File(pathname)
 		}
 	}
+	
+//	private static void createDirectory(List<String> path) {
+//		if (!path.isEmpty()) {
+//			File dir = new File(path.get(0));
+//			if(!dir.exists()) {
+//				dir.mkdirs();
+//			}
+//			dir.
+//			path.remove(0);
+//			createDirectory(path);
+//		}
+//	}
 }

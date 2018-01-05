@@ -24,6 +24,10 @@ public class GUIHelper {
 				UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 			} else if (os.startsWith("Linux")) {
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+				
+
+
 			}
 			SwingUtilities.updateComponentTreeUI(component);
 		} catch (Exception ex) {
